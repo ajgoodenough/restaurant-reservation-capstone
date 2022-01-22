@@ -1,23 +1,64 @@
-const router = require("express").Router();
-const controller = require("./reservations.controller");
-const methodNotAllowed = require("../errors/methodNotAllowed");
+const knex = require("../db/connection");
 
-router
-  .route("/")
-  .get(controller.list)
-  .post(controller.create)
-  .all(methodNotAllowed);
+function list() {
+  return knex("reservations").select("*").orderBy("reservation_time");
+}
+function listByDate(reservation_date) {
+  return knex("reservations")
+    .select("*")
+    .where({ reservation_date })
+    .whereNot({ status: "finished" })
+    .whereNot({ status: "cancelled" })
+    .orderBy("reservation_time");
+}
 
-router
-  .route("/:reservationId")
-  .get(controller.read)
-  .put(controller.update)
-  .delete(controller.delete)
-  .all(methodNotAllowed);
+function read(reservation_id) {
+  return knex("reservations").select("*").where({ reservation_id }).first();
+}
 
-router
-  .route("/:reservationId/status")
-  .put(controller.updateStatus)
-  .all(methodNotAllowed);
+function create(reservation) {
+  return knex("reservations")
+    .insert(reservation, "*")
+    .then((res) => res[0]);
+}
 
-module.exports = router;
+function update(updatedReservation) {
+  return knex("reservations")
+    .select("*")
+    .where({ reservation_id: updatedReservation.reservation_id })
+    .update(updatedReservation, "*")
+    .then((res) => res[0]);
+}
+
+// for cancelling reservations
+function updateStatus(reservation_id, status) {
+  return knex("reservations")
+    .where({ reservation_id })
+    .update({ status })
+    .then(() => read(reservation_id));
+}
+
+function destroy(reservation_id) {
+  return knex("reservations").select("*").where({ reservation_id }).del();
+}
+
+function search(mobile_number) {
+  return knex("reservations")
+    .whereRaw(
+      "translate(mobile_number, '() -', '') like ?",
+      `%${mobile_number.replace(/\D/g, "")}%`
+    )
+    .whereNot({ status: "cancelled" })
+    .orderBy("reservation_date");
+}
+
+module.exports = {
+  listByDate,
+  list,
+  read,
+  create,
+  update,
+  updateStatus,
+  destroy,
+  search,
+};

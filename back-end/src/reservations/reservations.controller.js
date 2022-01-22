@@ -1,6 +1,7 @@
 const reservationsService = require("./reservations.service");
 const hasProperties = require("../errors/hasProperties");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
+const { first } = require("../db/connection");
 
 // LIST
 async function list(req, res) {
@@ -75,6 +76,21 @@ async function reservationExists(req, res, next) {
   }
 }
 
+function hasValidName(req, res, next) {
+  const {
+    data: { first_name, last_name },
+  } = req.body;
+
+  if (/^[0-9]+$/.test(first_name) || /^[0-9]+$/.test(last_name)) {
+    return next({
+      status: 400,
+      message: "Name must include only letters A-Z.",
+    });
+  }
+
+  return next();
+}
+
 function hasValidDate(req, res, next) {
   const {
     data: { reservation_date, reservation_time },
@@ -83,6 +99,7 @@ function hasValidDate(req, res, next) {
   const submitDate = new Date(reservation_date + " " + reservation_time);
   const dayAsNum = submitDate.getUTCDay();
   const today = new Date();
+
   const dateFormat = /\d\d\d\d-\d\d-\d\d/;
   if (!reservation_date) {
     return next({
@@ -106,12 +123,6 @@ function hasValidDate(req, res, next) {
   // if editing, don't do final check for past date
   if (res.locals.reservation) {
     return next();
-  }
-  if (submitDate < today) {
-    next({
-      status: 400,
-      message: `The date and time cannot be in the past. Please select a future date. Today is ${today}.`,
-    });
   }
 
   next();
@@ -148,6 +159,21 @@ function hasValidTime(req, res, next) {
       });
     }
   }
+  next();
+}
+
+function hasValidPhoneNumber(req, res, next) {
+  const {
+    data: { mobile_number },
+  } = req.body;
+
+  if (/[a-zA-Z.,]/.test(mobile_number) === true) {
+    return next({
+      status: 400,
+      message: "Mobile Number must only include numbers",
+    });
+  }
+
   next();
 }
 
@@ -258,8 +284,10 @@ module.exports = {
     hasOnlyValidProperties,
     hasRequiredProperties,
     checkBooked,
+    hasValidName,
     hasValidTime,
     hasValidDate,
+    hasValidPhoneNumber,
     hasValidPeople,
     asyncErrorBoundary(create),
   ],
@@ -267,8 +295,10 @@ module.exports = {
     asyncErrorBoundary(reservationExists),
     hasRequiredProperties,
     checkBooked,
+    hasValidName,
     hasValidTime,
     hasValidDate,
+    hasValidPhoneNumber,
     hasValidPeople,
     asyncErrorBoundary(update),
   ],
