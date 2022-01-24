@@ -102,7 +102,7 @@ function hasValidDate(req, res, next) {
 
   // if editing, don't do final check for past date
   if (res.locals.reservation) {
-    return next()
+    return next();
   }
   if (submitDate < today) {
     next({

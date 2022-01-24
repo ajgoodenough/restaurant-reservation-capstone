@@ -28,13 +28,17 @@ const SeatReservation = () => {
   }
 
   const handleSubmit = (e) => {
-    const abortController = new AbortController()
+    const abortController = new AbortController();
     e.preventDefault();
-    updateTable(reservationId, Number(selectValue.table_id), abortController.signal)
+    updateTable(
+      reservationId,
+      Number(selectValue.table_id),
+      abortController.signal
+    )
       .then(() => history.push("/dashboard"))
       .catch(setError);
 
-    return () => abortController.abort()
+    return () => abortController.abort();
   };
   return (
     <div>
@@ -45,7 +49,12 @@ const SeatReservation = () => {
         <p>Table name - Table capacity</p>
         {tables && (
           <div className="form-group">
-            <select name="table_id" required onChange={changeHandler} className="seat-select">
+            <select
+              name="table_id"
+              required
+              onChange={changeHandler}
+              className="seat-select"
+            >
               <option value=""></option>
               {tables.map((table) => (
                 <option value={table.table_id} key={table.table_id}>

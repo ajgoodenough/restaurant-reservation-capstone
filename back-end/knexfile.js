@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config();
 const path = require("path");
 
 const { NODE_ENV = "development", DATABASE_URL } = process.env;

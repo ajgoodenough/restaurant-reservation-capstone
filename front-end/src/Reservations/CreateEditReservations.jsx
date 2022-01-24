@@ -61,14 +61,14 @@ const CreateEditReservation = () => {
   };
 
   async function handleSubmit(e) {
-    console.log("Handle submit called")
+    console.log("Handle submit called");
     e.preventDefault();
     const abortController = new AbortController();
     try {
       if (reservationId) {
-        console.log("Trying to update")
+        console.log("Trying to update");
         await updateReservation(formData, abortController.signal);
-        console.log("updated")
+        console.log("updated");
         history.push(`/dashboard?date=${formData.reservation_date}`);
         setFormData({ ...initialFormState });
       } else {
@@ -77,7 +77,7 @@ const CreateEditReservation = () => {
         setFormData({ ...initialFormState });
       }
     } catch (err) {
-      console.log(err)
+      console.log(err);
       setError(err);
     }
 

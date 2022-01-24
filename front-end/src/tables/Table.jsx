@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 const TableList = ({ table, loadDashboard }) => {
   const [reservations, setReservations] = useState([]);
   const [error, setError] = useState(null);
-  const history = useHistory()
+  const history = useHistory();
   useEffect(() => {
     listReservations().then(setReservations);
   }, []);
@@ -21,7 +21,7 @@ const TableList = ({ table, loadDashboard }) => {
     ) {
       try {
         await clearTable(tableId);
-        history.go()
+        history.go();
       } catch (err) {
         setError(err);
       }
