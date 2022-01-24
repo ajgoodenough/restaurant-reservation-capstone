@@ -3,7 +3,7 @@ import { listReservations, listTables } from "../utils/api";
 import { previous, next, today } from "../utils/date-time";
 import { Button } from "@mui/material";
 import ErrorAlert from "../layout/ErrorAlert";
-import ReservationsList from "../reservations/ReservationsList";
+import ReservationsList from "../Reservations/ReservationsList";
 import Table from "../tables/Table";
 import { useLocation, useHistory } from "react-router-dom";
 const dayjs = require("dayjs");

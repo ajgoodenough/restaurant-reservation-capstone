@@ -2,10 +2,10 @@ body {
   font-family: "Poppins", sans-serif;
   max-width: 1440px;
   margin: 0 auto;
-  background: url("./images/coffee-brighter.png");
+  /*background: url("./images/coffee-brighter.png");*/
   background-color: #753d049d;
   /* color: rgb(224, 224, 224); */
-}
+} 
 
 a:hover {
   text-decoration: none;
