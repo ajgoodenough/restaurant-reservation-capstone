@@ -40,5 +40,8 @@
     "test:8:backend": "npm run test:8 --prefix ./back-end",
     "test:e2e": "npm run test:e2e --prefix ./front-end",
     "test:frontend:watch": "npm test --prefix ./front-end"
+  },
+  "dependencies": {
+    "cross-env": "^7.0.3"
   }
 }
