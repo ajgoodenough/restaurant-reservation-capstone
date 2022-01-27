@@ -138,7 +138,7 @@ const CreateEditReservation = () => {
               name="reservation_date"
               className="form-control"
               id="reservation_date"
-              pattern="\d{4}-\d{2}-\d{2}"
+              // pattern="\d{4}-\d{2}-\d{2}"
               value={dayjs(formData.reservation_date).format("YYYY-MM-DD")}
               onChange={handleChange}
               required
@@ -149,7 +149,7 @@ const CreateEditReservation = () => {
               name="reservation_date"
               className="form-control"
               id="reservation_date"
-              pattern="\d{4}-\d{2}-\d{2}"
+              // pattern="\d{4}-\d{2}-\d{2}"
               value={formData.reservation_date}
               onChange={handleChange}
               required
@@ -161,7 +161,7 @@ const CreateEditReservation = () => {
             name="reservation_time"
             className="form-control"
             id="reservation_time"
-            pattern="[0-9]{2}:[0-9]{2}"
+            // pattern="[0-9]{2}:[0-9]{2}"
             value={formData.reservation_time}
             onChange={handleChange}
             required
@@ -173,7 +173,7 @@ const CreateEditReservation = () => {
             className="form-control"
             id="people"
             min={1}
-            placeholder="1"
+            placeholder="Enter Number of People"
             value={formData.people}
             onChange={handleNumberInput}
             required

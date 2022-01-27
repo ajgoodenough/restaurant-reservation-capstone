@@ -68,6 +68,7 @@ function Dashboard() {
 
   return (
     <main>
+      {/* {console.log(reservations)} */}
       <div className="dashboard-header">
         <h1 className="text-center">Dashboard</h1>
         <div className="mb-5">
