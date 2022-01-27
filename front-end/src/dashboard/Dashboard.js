@@ -6,6 +6,7 @@ import ErrorAlert from "../layout/ErrorAlert";
 import ReservationsList from "../Reservations/ReservationsList";
 import Table from "../tables/Table";
 import { useLocation, useHistory } from "react-router-dom";
+
 const dayjs = require("dayjs");
 
 function Dashboard() {
