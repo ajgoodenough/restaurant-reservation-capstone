@@ -2,9 +2,7 @@ body {
   font-family: "Poppins", sans-serif;
   max-width: 1440px;
   margin: 0 auto;
-  /*background: url("./images/coffee-brighter.png");*/
-  background-color: #008488;
-  /* color: rgb(224, 224, 224); */
+  background-color: #00C2D1;
 }
 
 a:hover {
